@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "title": "Introduction to Scratch",
+      "description": "Learn the basics of programming with Scratch.",
+      "CategoryId": 1
+    },
+    {
+      "id": 2,
+      "title": "HTML & CSS for Kids",
+      "description": "Create your first web pages with HTML and CSS.",
+      "CategoryId": 2
+    },
+    {
+      "id": 3,
+      "title": "Building Simple Games",
+      "description": "Design and build your own simple games.",
+      "CategoryId": 3
+    }
+  ]
+  
