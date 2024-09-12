@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
     static associate(models) {
@@ -17,18 +18,25 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  User.init({
-    username: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING
-  }), {
-    hooks: {
-      beforeCreate: async (instance, options) => {
-        instance.password = await hashPass(instance.password) 
+
+  // Menggunakan `Users.init` sesuai dengan nama kelas
+  Users.init(
+    {
+      username: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      role: DataTypes.STRING,
+    },
+    {
+      hooks: {
+        beforeCreate: async (instance, options) => {
+          instance.password = await hashPass(instance.password); // Pastikan hashPass didefinisikan dan diimpor dengan benar
+        },
       },
-    sequelize,
-    modelName: 'User',
-  }}
-  return User;
+      sequelize,
+      modelName: 'Users',
+    }
+  );
+
+  return Users;
 };
