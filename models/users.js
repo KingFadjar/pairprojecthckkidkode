@@ -17,14 +17,18 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Users.init({
+  User.init({
     username: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     role: DataTypes.STRING
-  }, {
+  }), {
+    hooks: {
+      beforeCreate: async (instance, options) => {
+        instance.password = await hashPass(instance.password) 
+      },
     sequelize,
-    modelName: 'Users',
-  });
-  return Users;
+    modelName: 'User',
+  }}
+  return User;
 };
