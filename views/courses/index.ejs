@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Courses List</title>
+</head>
+<body>
+  <h1>List of Courses</h1>
+  <a href="/courses/add">Add New Course</a>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Category ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% courses.forEach(course => { %>
+        <tr>
+          <td><%= course.id %></td>
+          <td><%= course.title %></td>
+          <td><%= course.description %></td>
+          <td><%= course.CategoryId %></td>
+          <td>
+            <a href="/courses/edit/<%= course.id %>">Edit</a> |
+            <a href="/courses/delete/<%= course.id %>">Delete</a>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>
