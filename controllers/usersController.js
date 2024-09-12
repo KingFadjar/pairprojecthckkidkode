@@ -1,69 +1,50 @@
 'use strict';
 
-const { Users } = require('../models');
+const { Users } = require('../models');  // Pastikan ini benar dan sesuai dengan struktur project Anda
+const bcrypt = require('bcrypt');
 
-exports.getAllUsers = async (req, res) => {
-  try {
-    const users = await Users.findAll({
-      include: ['profile', 'courses']
-    });
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-exports.getUserById = async (req, res) => {
-  try {
-    const user = await Users.findByPk(req.params.id, {
-      include: ['profile', 'courses']
-    });
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).json({ message: 'User not found' });
+class usersController {
+    // Render form login dengan opsi untuk menampilkan pesan kesalahan
+    static async loginForm(req, res) {
+        const { error } = req.query;
+        try {
+            console.log(error);
+            res.render('showLogin', { error });
+        } catch (err) {
+            res.send(err);
+        }
     }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
 
-exports.createUser = async (req, res) => {
-  try {
-    const user = await Users.create(req.body);
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-exports.updateUser = async (req, res) => {
-  try {
-    const [updated] = await Users.update(req.body, {
-      where: { id: req.params.id }
-    });
-    if (updated) {
-      const updatedUser = await Users.findByPk(req.params.id);
-      res.status(200).json(updatedUser);
-    } else {
-      res.status(404).json({ message: 'User not found' });
+    // Proses login pengguna
+    static async loginUser(req, res) {
+        try {
+            const { email, password } = req.body;
+            const user = await Users.findOne({ where: { email } });
+            if (user && await bcrypt.compare(password, user.password)) {
+                // Simpan informasi pengguna di sesi
+                req.session.user = user; // Simpan user di session
+                res.redirect('/landing'); // Redirect ke halaman landing setelah login berhasil
+            } else {
+                res.render('showLogin', { error: 'Invalid email or password' }); // Pastikan view 'showLogin' ada
+            }
+        } catch (error) {
+            console.log(error);  // Ganti `err` dengan `error`
+            res.status(500).json({ error: error.message });
+        }
     }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
 
-exports.deleteUser = async (req, res) => {
-  try {
-    const deleted = await Users.destroy({
-      where: { id: req.params.id }
-    });
-    if (deleted) {
-      res.status(204).send();
-    } else {
-      res.status(404).json({ message: 'User not found' });
+    // Proses logout pengguna
+    static logout(req, res) {
+        // Menghapus sesi pengguna
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).json({ error: 'Failed to log out. Please try again.' });
+            }
+            // Menghapus cookie sesi dan mengarahkan kembali ke halaman login
+            res.clearCookie('connect.sid');
+            res.redirect('/login');
+        });
     }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
+}
+
+module.exports = usersController;

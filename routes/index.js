@@ -1,9 +1,11 @@
 //package
 const express = require('express')
-const UserController = require('../controllers/UserController')
+const usersController = require('../controllers/usersController')
 
 //router
-router.get('/register', UserController.register)
+router.get('/register', UserController.register) //kenpaa ada dua anjay
 router.post('/register', UserController.register)
-router.get('/login', UserController.login)
+router.get('/login', UserController.login) //kenpaa ada dua anjay
 router.post('/login', UserController.login)
+
+module.exports = usersController
