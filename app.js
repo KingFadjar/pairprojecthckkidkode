@@ -6,10 +6,11 @@ const bodyParser = require('body-parser');
 const { Categories, Courses, Profiles, Users } = require('./models');
 const registerController = require('./controllers/registerController');
 const categoryController = require('./controllers/categoryController');
-const courseController = require('./controllers/coursesController');
+const coursesController = require('./controllers/coursesController');
 const profileController = require('./controllers/profilesController');
 const usersController = require('./controllers/usersController');
-const bcrypt = require('bcrypt');
+const userCourseController = require('./controllers/userCourseController');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 
@@ -19,13 +20,15 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: true })); // Parses URL-encoded bodies
+app.use(express.urlencoded({ extended: true })); // Parses URL-encoded bodies
 app.use(bodyParser.json()); // Parses JSON bodies
 
 // Static Files
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files (CSS, JS, images)
 
 // Routes
+
+
 // Login
 app.get('/login', usersController.loginForm);
 app.post('/login', usersController.loginUser); // Handle login
@@ -41,11 +44,11 @@ app.put('/categories/:id', categoryController.updateCategory);
 app.delete('/categories/:id', categoryController.deleteCategory);
 
 // Courses
-app.get('/courses', courseController.getAllCourses);
-app.get('/courses/:id', courseController.getCourseById);
-app.post('/courses', courseController.createCourse);
-app.put('/courses/:id', courseController.updateCourse);
-app.delete('/courses/:id', courseController.deleteCourse);
+app.get('/courses', coursesController.getAllCourses);
+app.get('/courses/:id', coursesController.getCourseById);
+app.post('/courses', coursesController.createCourse);
+app.put('/courses/:id', coursesController.updateCourse);
+app.delete('/courses/:id', coursesController.deleteCourse);
 
 // Profiles
 app.get('/profiles', profileController.getAllProfiles);
@@ -55,12 +58,14 @@ app.put('/profiles/:id', profileController.updateProfile);
 app.delete('/profiles/:id', profileController.deleteProfile);
 
 // Users
-app.post('/users/register', registerController.registerUser);
-app.get('/users', usersController.getAllUsers);
-app.get('/users/:id', usersController.getUserById);
-app.post('/users', usersController.createUser);
-app.put('/users/:id', usersController.updateUser);
-app.delete('/users/:id', usersController.deleteUser);
+app.get('/register', registerController.register);
+app.post('/register', registerController.registerUser);
+app.get('/users', userCourseController.getAllUserCourses);
+app.get('/users/:id', userCourseController.getUserCourseById);
+app.post('/users', userCourseController.createUserCourse);
+app.put('/users/:id', userCourseController.updateUserCourse);
+app.delete('/users/:id', userCourseController.deleteUserCourse);
+
 
 // Default route to register a new user
 app.get('/', (req, res) => {

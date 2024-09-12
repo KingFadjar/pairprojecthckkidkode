@@ -1,7 +1,7 @@
 'use strict';
 
 const { Users } = require('../models');  // Pastikan ini benar dan sesuai dengan struktur project Anda
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 class usersController {
     // Render form login dengan opsi untuk menampilkan pesan kesalahan
