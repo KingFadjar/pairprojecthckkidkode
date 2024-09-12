@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Course</title>
+</head>
+<body>
+  <h1>Add New Course</h1>
+  <form action="/courses/add" method="POST">
+    <label for="title">Course Title:</label>
+    <input type="text" name="title" id="title" required>
+    <br>
+    <label for="description">Course Description:</label>
+    <input type="text" name="description" id="description" required>
+    <br>
+    <label for="CategoryId">Category ID:</label>
+    <input type="number" name="CategoryId" id="CategoryId" required>
+    <br>
+    <button type="submit">Add Course</button>
+  </form>
+  <a href="/courses">Back to Courses List</a>
+</body>
+</html>
