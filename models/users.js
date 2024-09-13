@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const { hashPass } = require('../helper/hash');
 
 module.exports = (sequelize, DataTypes) => {
-  class Users extends Model {
+  class User extends Model {
     static associate(models) {
       // One-to-One relationship with Profiles
       this.hasOne(models.Profiles, {
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   // Menggunakan `Users.init` sesuai dengan nama kelas
-  Users.init(
+  User.init(
     {
       username: {
         type: DataTypes.STRING,
@@ -100,12 +100,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       sequelize,
-      modelName: 'Users',
-      tableName: 'Users', // Menggunakan nama tabel yang eksplisit
-      underscored: true,  // Gunakan snake_case untuk kolom di database
-      timestamps: true,   // Menambahkan createdAt dan updatedAt secara otomatis
+      modelName: 'User'   // Menambahkan createdAt dan updatedAt secara otomatis
     }
-  );
+  )
 
-  return Users; // Mengembalikan model Users yang benar
+  return User // Mengembalikan model Users yang benar
 };

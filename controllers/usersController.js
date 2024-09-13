@@ -2,6 +2,7 @@
 
 const { Users } = require('../models');  // Pastikan ini benar dan sesuai dengan struktur project Anda
 const bcrypt = require('bcryptjs');
+const session = require('express-session');
 
 class usersController {
     // Render form login dengan opsi untuk menampilkan pesan kesalahan
@@ -18,23 +19,35 @@ class usersController {
     // Proses login pengguna
     static async loginUser(req, res) {
         try {
-            const { email, password } = req.body;
-            const user = await Users.findOne({ where: { email } });
-            if (user && await bcrypt.compare(password, user.password)) {
-                // Simpan informasi pengguna di sesi
-                req.session.user = user; // Simpan user di session
-                res.redirect('/landing'); // Redirect ke halaman landing setelah login berhasil
-            } else {
-                res.render('showLogin', { error: 'Invalid email or password' }); // Pastikan view 'showLogin' ada
+            let { email, password } = req.body;
+
+            let user = await Users.findOne({ where: { email } })
+
+            if (user) {
+                let isValidPassword = await bcrypt.compare(password, user.password);
+
+                if (isValidPassword) {
+                    req.session.userId = user.id
+                    return res.redirect('/')
+                }
+                else {
+                    let error = "Invalid username or password";
+                    return res.redirect(`/login?error=${error}`);
+                }
             }
-        } catch (error) {
-            console.log(error);  // Ganti `err` dengan `error`
-            res.status(500).json({ error: error.message });
+            else {
+                let error = "Invalid username  or password";
+                return res.redirect(`/login?error=${error}`);
+            }
+        }
+
+        catch (error) {
+            res.send(error);
         }
     }
 
     // Proses logout pengguna
-    static logout(req, res) {
+    static async logout(req, res) {
         // Menghapus sesi pengguna
         req.session.destroy((err) => {
             if (err) {
