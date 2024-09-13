@@ -3,10 +3,11 @@ const router = express.Router();
 const { Categories, Courses } = require('../models'); // Sesuaikan path dengan struktur proyek Anda
 
 // CREATE Category
-router.post('/', async (req, res) => {
+router.post('/categories/add', async (req, res) => {
   try {
     const category = await Categories.create(req.body);
     res.status(201).json(category);
+    res.render('add', { category })
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

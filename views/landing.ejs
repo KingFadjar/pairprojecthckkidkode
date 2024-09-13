@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilih Kursus</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="https://media.dev.to/cdn-cgi/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Frqxgzic5nwiq6xlb6oas.png" alt="KidKod Logo" width="50" height="50" class="d-inline-block align-text-top">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="/users/:id"> Profil <%= user %></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Pilih Kursus Kamu!</h2>
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="card mb-4">
+          <img src="https://media.dev.to/cdn-cgi/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fhncie04uvw4psy99lhkn.png" class="card-img-top" alt="Course 1">
+          <div class="card-body">
+            <h5 class="card-title">FrontEnd Javascript</h5>
+            <p class="card-text">Penasaran bagaimana situs web dan aplikasi keren dibuat? Ikuti kursus FrontEnd JavaScript untuk belajar membuat halaman web interaktif dan menarik, dari tombol-tombol animasi hingga form yang dinamis!</p>
+            <a href="/download/frontend" class="btn btn-primary">Pelajari ini</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-8">
+        <div class="card mb-4">
+          <img src="https://media.dev.to/cdn-cgi/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fs0kq4as4wdrcx9su4j53.png" class="card-img-top" alt="Course 2">
+          <div class="card-body">
+            <h5 class="card-title">BackEnd Javascript</h5>
+            <p class="card-text">Backend JavaScript adalah bagian penting dari pengembangan web, yang bertanggung jawab mengelola logika, database, dan server di balik layar aplikasi web. Melalui Node.js, kamu akan belajar membuat sistem interaktif yang mendukung aplikasi favoritmu!</p>
+            <a href="/download/frontend-pdf" class="btn btn-primary">Pelajari ini</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

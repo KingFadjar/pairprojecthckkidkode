@@ -12,6 +12,13 @@
       "email": "bob@example.com",
       "password": "password123",
       "role": "student"
+    },
+    {
+      "id": 3,
+      "username": "gataurr",
+      "email": "test@test.gmail.com",
+      "password": "$2a$06$aDZKMTAO/yiJMJrsnRLHnOIBkCjfPntvERi7BZxyvb.2GMW6hkxNy",
+      "role": "user"
     }
   ]
   
